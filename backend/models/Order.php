@@ -23,6 +23,12 @@ use Yii;
  */
 class Order extends \yii\db\ActiveRecord
 {
+    private const ORDER_STATUS_ERASER = 1;
+    private const ORDER_STATUS_PAYED = 2;
+    private const ORDER_STATUS_PACK_OFF = 3;
+    private const ORDER_STATUS_DELIVERED = 4;
+    private const ORDER_STATUS_CANCELLED = 5;
+
     /**
      * {@inheritdoc}
      */
@@ -38,12 +44,20 @@ class Order extends \yii\db\ActiveRecord
     {
         return [
             [['client'], 'required'],
-            [['client', 'seller', 'deliver', 'total', 'status'], 'integer'],
+            [['client', 'seller', 'deliver', 'total'], 'integer'],
             [['date'], 'safe'],
             [['address'], 'string', 'max' => 250],
             [['client'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['client' => 'id']],
             [['deliver'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['deliver' => 'id']],
             [['seller'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['seller' => 'id']],
+            ['status', 'default' => self::ORDER_STATUS_ERASER],
+            ['status', 'in', 'range' => [
+                self::ORDER_STATUS_ERASER,
+                self::ORDER_STATUS_PAYED,
+                self::ORDER_STATUS_PACK_OFF,
+                self::ORDER_STATUS_DELIVERED,
+                self::ORDER_STATUS_CANCELLED
+            ]]
         ];
     }
 

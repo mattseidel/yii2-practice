@@ -78,7 +78,7 @@ class User extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getOrders()
+    public function getClients()
     {
         return $this->hasMany(Order::className(), ['client' => 'id']);
     }
@@ -88,7 +88,7 @@ class User extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getOrders0()
+    public function getDeliverers()
     {
         return $this->hasMany(Order::className(), ['deliver' => 'id']);
     }
@@ -98,7 +98,7 @@ class User extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getOrders1()
+    public function getSellers()
     {
         return $this->hasMany(Order::className(), ['seller' => 'id']);
     }
