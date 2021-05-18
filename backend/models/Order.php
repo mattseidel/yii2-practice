@@ -110,6 +110,7 @@ class Order extends \yii\db\ActiveRecord
         $order->address = $adress;
         $order->total = $total;
         $order->save();
+        return $order;
     }
 
 }
