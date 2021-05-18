@@ -94,7 +94,7 @@ class User extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Orders]].
+     * Gets orders by clien_id
      *
      * @return \yii\db\ActiveQuery
      */

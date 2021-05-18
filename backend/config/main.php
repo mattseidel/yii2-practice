@@ -44,12 +44,19 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => true,
             'rules' => [
+                //Controlador Usuario
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'user'],
                 //Controlador ITEM
                 [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => 'item',
-                    'pluralize' => false
+                    'pluralize' => false,
+                ],
+                //Controlador order
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'order',
+                    'pluralize' => false,
                 ],
             ],
         ],
