@@ -25,7 +25,16 @@ class Item extends \yii\db\ActiveRecord
     {
         return 'item';
     }
+    public $quanty;
+    public function getQuanty()
+    {
+        return $this->quanty;
+    }
 
+    public function setQuanty($quanty)
+    {
+        $this->quanty = $quanty;
+    }
     /**
      * {@inheritdoc}
      */

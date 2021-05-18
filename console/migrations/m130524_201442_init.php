@@ -50,7 +50,7 @@ class m130524_201442_init extends Migration
             'item' => $this->integer(),
             'order' => $this->integer(),
             'quanty' => $this->integer(),
-            'total' => $this->integer(),
+            'price' => $this->integer(),
         ], $tableOptions);
 
         $this->addForeignKey(

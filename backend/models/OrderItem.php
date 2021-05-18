@@ -24,13 +24,15 @@ class OrderItem extends \yii\db\ActiveRecord
         return 'order_item';
     }
 
+  
+
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['item', 'order', 'quanty'], 'integer'],
+            [['item', 'order', 'quanty', 'price'], 'integer'],
             [['item'], 'exist', 'skipOnError' => true, 'targetClass' => Item::className(), 'targetAttribute' => ['item' => 'id']],
             [['order'], 'exist', 'skipOnError' => true, 'targetClass' => Order::className(), 'targetAttribute' => ['order' => 'id']],
         ];
@@ -53,9 +55,9 @@ class OrderItem extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getItem0()
+    public function getItem()
     {
-        return $this->hasOne(Item::className(), ['id' => 'item']);
+        return Item::find()->where('id', $this->item)->all();
     }
 
     /**
