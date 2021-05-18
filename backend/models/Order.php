@@ -103,4 +103,13 @@ class Order extends \yii\db\ActiveRecord
     {
         return $this->hasMany(OrderItem::className(), ['order' => 'id']);
     }
+
+    public static function newOrder($user_id, $adress, $total) {
+        $order = new Order();
+        $order->client = $user_id;
+        $order->address = $adress;
+        $order->total = $total;
+        $order->save();
+    }
+
 }
