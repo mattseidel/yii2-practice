@@ -57,7 +57,6 @@ class WorkerController extends ActiveController
     public function actionDetailOrder($idOrder)
     {
         \yii::$app->response->format = Response::FORMAT_JSON;
-
         $order = Order::find()->where(['id' => $idOrder])->one();
         $item = $this->getItemsDetails(OrderItem::find()->where(['order' => $idOrder])->all());
         return ['order' => [
@@ -73,14 +72,17 @@ class WorkerController extends ActiveController
         $order->scenario = Order::SCENARIO_UPDATE_STATUS;
         $order->attributes = \Yii::$app->request->post();
         if ($order->validate()) {
-            $newOrder = Order::findOne($idOrder);
-            $newOrder->status = $order['status'];
-            $newOrder->save();
+            $this->saveOrderStatus($order, $idOrder);
             return ['message' => 'data save successfully', 'code' => 200];
         } else
             return ['status' => false, 'data' => $order->getErrors()];
     }
-
+    private function saveOrderStatus($order, $idOrder)
+    {
+        $newOrder = Order::findOne($idOrder);
+        $newOrder->status = $order['status'];
+        $newOrder->save();
+    }
     /**
      * function to return details from items
      * @param OrderItemModel $items 
