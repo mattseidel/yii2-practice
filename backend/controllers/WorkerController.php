@@ -24,5 +24,8 @@ class WorkerController extends ActiveController
         return messageToDisplay::emptyMessage($model);
     }
 
-    
+    public function actionCloseOrder($idOrder)
+    {
+        
+    }
 }

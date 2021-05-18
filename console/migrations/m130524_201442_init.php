@@ -50,6 +50,7 @@ class m130524_201442_init extends Migration
             'item' => $this->integer(),
             'order' => $this->integer(),
             'quanty' => $this->integer(),
+            'total' => $this->integer(),
         ], $tableOptions);
 
         $this->addForeignKey(
@@ -93,11 +94,11 @@ class m130524_201442_init extends Migration
 
     public function down()
     {
-        $this->dropForeignKey('fk_client_order','order');
-        $this->dropForeignKey('fk_order_seller','order');
-        $this->dropForeignKey('fk_order_delivery','order');
-        $this->dropForeignKey('fk_order_item','order_item');
-        $this->dropForeignKey('fk_item_order','order_item');
+        $this->dropForeignKey('fk_client_order', 'order');
+        $this->dropForeignKey('fk_order_seller', 'order');
+        $this->dropForeignKey('fk_order_delivery', 'order');
+        $this->dropForeignKey('fk_order_item', 'order_item');
+        $this->dropForeignKey('fk_item_order', 'order_item');
         $this->dropTable('user');
         $this->dropTable('item');
         $this->dropTable('order');
