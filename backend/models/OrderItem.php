@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace backend\models;
 
 use Yii;
 
@@ -68,5 +68,21 @@ class OrderItem extends \yii\db\ActiveRecord
     public function getOrder0()
     {
         return $this->hasOne(Order::className(), ['id' => 'order']);
+    }
+
+    /**
+     * Funcion para agregar un nuevo order_item
+     * @param $order_id
+     * @param $item_id
+     * @param $quanty
+     * @return OrderItem
+     */
+    public static function newOrderItem($order_id, $item_id, $quanty) {
+        $neworder = new OrderItem();
+        $neworder->order = $order_id;
+        $neworder->item = $item_id;
+        $neworder->quanty = $quanty;
+        $neworder->save();
+        return $neworder;
     }
 }

@@ -1,8 +1,9 @@
 <?php
 
-namespace app\models;
+namespace backend\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "user".
@@ -37,10 +38,20 @@ class User extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::className(),
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function rules()
     {
         return [
-            [['username', 'auth_key', 'password_hash', 'email', 'created_at', 'updated_at'], 'required'],
+            [['username', 'password_hash', 'email'], 'required'],
             [['user_type', 'status', 'created_at', 'updated_at'], 'integer'],
             [['username', 'password_hash', 'password_reset_token', 'email', 'verification_token'], 'string', 'max' => 255],
             [['auth_key'], 'string', 'max' => 32],
@@ -50,6 +61,15 @@ class User extends \yii\db\ActiveRecord
             [['password_reset_token'], 'unique'],
             [['phone'], 'unique'],
         ];
+    }
+
+    public function beforeSave($insert) {
+        parent::beforeSave($insert);
+        if($insert){
+            $this->password_hash = Yii::$app->security->generatePasswordHash($this->password_hash);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -74,7 +94,7 @@ class User extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Orders]].
+     * Gets orders by clien_id
      *
      * @return \yii\db\ActiveQuery
      */

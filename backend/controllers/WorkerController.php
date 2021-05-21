@@ -3,10 +3,10 @@
 namespace backend\controllers;
 
 use app\environment\messageToDisplay;
-use app\models\Item;
-use app\models\Order;
-use app\models\OrderItem;
-use app\models\User;
+use backend\models\Item;
+use backend\models\Order;
+use backend\models\OrderItem;
+use backend\models\User;
 use yii\rest\ActiveController;
 use yii\web\Response;
 
@@ -24,7 +24,7 @@ class WorkerController extends ActiveController
 
     public function actionOrderList()
     {
-        $model = Order::find()->select(['date', 'total', 'status'])->where(['status' => Order::ORDER_STATUS_ERASER])->all();
+        $model = Order::find()->select(['date', 'total', 'status','id'])->where(['status' => Order::ORDER_STATUS_PAYED])->all();
         return messageToDisplay::emptyMessage($model);
     }
 
@@ -77,6 +77,7 @@ class WorkerController extends ActiveController
         } else
             return ['status' => false, 'data' => $order->getErrors()];
     }
+
     private function saveOrderStatus($order, $idOrder)
     {
         $newOrder = Order::findOne($idOrder);

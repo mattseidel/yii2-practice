@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace backend\models;
 
 use Yii;
 
@@ -128,4 +128,14 @@ class Order extends \yii\db\ActiveRecord
     {
         return OrderItem::find()->where(['order' => $this->id])->all();
     }
+
+    public static function newOrder($user_id, $adress, $total) {
+        $order = new Order();
+        $order->client = $user_id;
+        $order->address = $adress;
+        $order->total = $total;
+        $order->save();
+        return $order;
+    }
+
 }

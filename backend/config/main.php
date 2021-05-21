@@ -15,6 +15,9 @@ return [
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-backend',
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+            ]
         ],
         'user' => [
             'identityClass' => 'common\models\User',
@@ -39,12 +42,26 @@ return [
         ],
         'urlManager' => [
             'enablePrettyUrl' => true,
-            'enableStrictParsing' => false,
-            'showScriptName' => false,
+            'showScriptName' => true,
             'rules' => [
+                //Controlador Usuario
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'user'],
+                //Controlador ITEM
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'item',
+                    'pluralize' => false,
+                ],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'worker'],
+
+                //Controlador order
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'order',
+                    'pluralize' => false,
+                ],
             ],
-        ]
+        ],
     ],
     'params' => $params,
 ];
